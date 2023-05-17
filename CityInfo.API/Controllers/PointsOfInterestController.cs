@@ -9,7 +9,7 @@ namespace CityInfo.API.Controllers
     public class PointsOfInterestController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<IEnumerable<PointsOfInterestDto>> GetPointsOfInterest(int cityId) {
+        public ActionResult<IEnumerable<PointOfInterestDto>> GetPointsOfInterest(int cityId) {
             var city =  CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
             
             if (city == null) {
@@ -20,7 +20,7 @@ namespace CityInfo.API.Controllers
         }
 
         [HttpGet("{pointOfInterestId}", Name = "GetPointOfInterest")]
-        public ActionResult<PointsOfInterestDto> GetPointOfInterest(
+        public ActionResult<PointOfInterestDto> GetPointOfInterest(
             int cityId, int pointOfInterestId)
             {
                 var city = CitiesDataStore.Current.Cities
@@ -42,7 +42,7 @@ namespace CityInfo.API.Controllers
             }
 
         [HttpPost]
-        public ActionResult<PointsOfInterestDto> CreatePointOfInterest(
+        public ActionResult<PointOfInterestDto> CreatePointOfInterest(
             int cityId,
             PointOfInterestForCreationDto pointOfInterest)
         { 
@@ -56,7 +56,7 @@ namespace CityInfo.API.Controllers
             var maxPointOfInterestId = CitiesDataStore.Current.Cities.SelectMany(
                 c => c.PointsOfInterest).Max(p => p.Id);
 
-            var finalPointOfInterest = new PointsOfInterestDto()
+            var finalPointOfInterest = new PointOfInterestDto()
             {
                 Id = ++maxPointOfInterestId,
                 Name = pointOfInterest.Name,
